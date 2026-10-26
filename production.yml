@@ -1,0 +1,63 @@
+# In this file we will create resources for production environment...!
+#
+# Create production namespace...!
+
+kind: Namespace
+apiVersion: v1
+
+metadata:
+  name: production
+  labels:
+    environment:  production-env
+    team: backend
+
+---
+
+# Create Deployment for production...!
+# Here we will manage a set of identical pods...!
+
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: prod-deployment
+  namespace:  production
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app:  prod-html
+  template:
+    metadata:
+      labels:
+        app:  prod-html
+    spec:
+      containers:
+        - name: prod
+          image:  syedhabbas/k8s-html-prod-v1.0:k8s-prod
+          ports:
+          - containerPort:  80
+
+---
+
+# Create Service for Production environemt...!
+# Service is the method in K8s to expose network application
+# running as one or more Pods in the cluster...!
+
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: prod-service
+  namespace:  production
+
+spec:
+  selector:
+    app: prod-html # this name must match with spec.selector.matchLabels.app: prod-html in Deployment.
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 80
+
+

@@ -1,0 +1,70 @@
+# In this file we will create resources for development environment...!
+#
+# Create  Namespace --- development...!
+#
+
+kind: Namespace
+apiVersion: v1
+
+metadata:
+  name: development
+  labels:
+    environment:  development-env
+    team: backend
+
+---
+
+# Create Deployment for Namespace development...!
+# Here we will manage a set of identical pods...!
+#
+
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: dev-deployment
+  namespace:  development
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app:  dev-html
+  template:
+    metadata:
+      labels:
+        app:  dev-html
+    spec:
+      containers:
+      - name: dev
+        image:  syedhabbas/k8s-html-dev-v1.0:k8s-dev
+        ports:
+        - containerPort:  80
+
+---
+
+# Create Service for development Deployment...!
+# Service is a method in k8s to expose network application running on Pods
+# Pods we defined above inside Deployment
+
+
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: dev-service
+  namespace: development
+
+spec:
+  selector:
+    app: dev-html
+  ports:
+  - protocol: TCP
+    port: 8282
+    targetPort: 80
+
+
+
+
+
+

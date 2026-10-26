@@ -1,0 +1,66 @@
+# In this file we will create resource for staging environment...!
+#
+# Create staging namespace...!
+#
+
+kind: Namespace
+apiVersion: v1
+
+metadata:
+  name: staging
+  labels:
+    environment:  staging-env
+    team: backend
+
+---
+
+# Create Deployment for staging...!
+# Here we wil manage a set of identical pods...!
+
+
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: stg-deployment
+  namespace:  staging
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app:  stg-html
+  template:
+    metadata:
+      labels:
+        app:  stg-html
+    spec:
+      containers:
+      - name: stg
+        image:  syedhabbas/k8s-html-stg-v1.0:k8s-stg
+        ports:
+        - containerPort:  80
+
+---
+
+# Create Service for staging environment...!
+# Service is a method in k8s to expose network application
+# running as one or more Pods in cluster.
+
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: stg-service
+  namespace:  staging
+
+spec:
+  selector:
+    app:  stg-html
+  ports:
+  - protocol: TCP
+    port: 8181
+    targetPort: 80
+
+
+

@@ -45,5 +45,4 @@ Process to Implement Ingress in k8s with three namespaces
 
 # Forwarding from 0.0.0.0:8080 -> 80
 
-End of file...!
 

@@ -1,7 +1,7 @@
 
 Notes for this project, 
 
-In which we created one cluster
+We created one cluster
 kind-cluster.yml
 
 Three namespaces

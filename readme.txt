@@ -70,15 +70,20 @@ Following cmd will show master & worker nodes we created above
 Now we will create pods inside our cluster via deployment
 # kubectl apply -f deployment.yml 
 
-# kubectl get pods --namespace=k8s | it will show name of pods inside namespace k8s & its state
-# kubectl get pods --namespace-k8s -o wide | it will show which pod is running on which worker node 
-# kubectl get deployments.apps --namespace=k8s | it will show deployment name & number of pods  
+# kubectl get pods --namespace k8s | it will show name of pods inside namespace k8s & its state
+# kubectl get pods --namespace k8s -o wide | it will show which pod is running on which worker node 
+# kubectl get deployments.apps --namespace k8s | it will show deployment name & number of pods  
 # kubectl get rs --namespace k8s | it will show replica sets created by deployment
 # kubectl describe pods/nginx-deployment-665bd67d57-94cxn --namespace=k8s
+# kubectl delete pods/prod-deployment-7d455d64db-d5g79 --namespace k8s
 
 # To get into pod created in namespace k8s 
 # kubectl get pods --namespace k8s
+
+To get into pod for troubleshooting.
 # kubectl exec -it pods/nginx-deployment-585c5579f6-zzp2w --namespace k8s -- bash
+OR if we dont have -- bash inside out docker image we can have following command 
+# kubectl exec -it pods/nginx-deployment-585c5579f6-zzp2w --namespace k8s -- sh
 
 # For service we need to forward port 
 # kubectl get all 

@@ -102,7 +102,6 @@ Switching between clusters
 Dockerfile, to add -- bash to your image we need to add following command inside Dockerfile
 RUN apk update && apk add --no-owned bash
 
-
 ========================================================================================================
 • Local Port (Left side): This is the port number on your own computer (localhost/laptop). 
   You will use this port in your browser or application to access the service (e.g., localhost:8080).
@@ -110,4 +109,24 @@ RUN apk update && apk add --no-owned bash
   where your Pod, Container, or Service is actively listening.
 ========================================================================================================
 
+Job in k8s
 
+we created job.yml file and uploaded to syedhabbas/k8s-Ingress 
+# kubectl apply -f job.yml 
+# kubectl get pods --namespace production
+NAME                              READY    STATUS        RESTARTS   AGE
+demo-job-vlrbz                 0/1        Completed    0                 11m
+
+# Once job is completed in pod, the pod status will be completed...!
+# kubectl logs pods/demo-job-vlrbz --namespace production
+
+========================================================================================================
+
+Cron jobs in k8s 
+
+we created cron-job.yml file 
+# kubectl apply -f cron-job.yml
+# kubectl get pods -- namespace production
+# kubectl logs pods/minute-backup-29884545-9gtbj --namespace production
+
+========================================================================================================

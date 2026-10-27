@@ -1,0 +1,49 @@
+# In this file we will create a cron job...!
+#
+
+kind: CronJob
+apiVersion: batch/v1
+
+metadata: 
+  name: minute-backup
+  namespace:  production
+
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: munute-backup
+          labels:
+            app:  minute-backup
+        spec:
+          containers:
+          - name: backup-container
+            image:  busybox
+            command:
+            - sh
+            - -c
+            - >
+              echo "Backup Started...!"
+              mkdir -p /backups &&
+              mkdir -p /data &&
+              cp -r /demo-data /backup &&
+              echo "Backup Completed...!"
+            volumeMounts:
+              - name: data-volume
+                mountPath:  /demo-data
+              - name: backup-volume
+                mountPath:  /backups
+          restartPolicy:  OnFailure
+          volumes:
+            - name: data-volume
+              hostPath:
+                path: /demo-data
+                type: DirectoryOrCreate
+            - name: backup-volume
+              hostPath:
+                path: /backups
+                type: DirectoryOrCreate
+
+

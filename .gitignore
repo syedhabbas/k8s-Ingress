@@ -1,6 +1,6 @@
 
 # Ignore all hidden files and directories recursively
-*.
+.*
 
 # Exception: Do NOT ignore the .gitignore file itself so your team gets these rules
 !/.gitignore

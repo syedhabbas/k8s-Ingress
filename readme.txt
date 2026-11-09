@@ -80,6 +80,17 @@ Now we will create pods inside our cluster via deployment
 # To get into pod created in namespace k8s 
 # kubectl get pods --namespace k8s
 
+# Following commands will scale up and scale down pods inside namespace
+# kubectl get pods --namespace production
+# kubectl get deployments.apps --namespace production | it will show deployment name.
+# Scale Up.
+# kubectl scale deployment/prod-deployment --namespace production --replicas 10
+# Scale Down.
+# kubectl scale deployment/prod-deployment --namespace production --replicas 3
+# To check the results.
+# kubectl get pods --namespace production
+
+
 To get into pod for troubleshooting.
 # kubectl exec -it pods/nginx-deployment-585c5579f6-zzp2w --namespace k8s -- bash
 OR if we dont have -- bash inside out docker image we can have following command 

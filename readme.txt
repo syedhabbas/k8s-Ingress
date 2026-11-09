@@ -77,10 +77,11 @@ Now we will create pods inside our cluster via deployment
 # kubectl describe pods/nginx-deployment-665bd67d57-94cxn --namespace=k8s
 # kubectl delete pods/prod-deployment-7d455d64db-d5g79 --namespace k8s
 
-# To get into pod created in namespace k8s 
+To get into pod created in namespace k8s 
 # kubectl get pods --namespace k8s
 
-# Following commands will scale up and scale down pods inside namespace
+Following commands will scale up and scale down pods inside namespace
+
 # kubectl get pods --namespace production
 # kubectl get deployments.apps --namespace production | it will show deployment name.
 # Scale Up.

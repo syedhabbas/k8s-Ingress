@@ -1,0 +1,10 @@
+# In this file we will create NameSpace for PV and PVC
+
+
+kind: Namespace
+apiVersion: v1
+
+metadata:
+  name: ns-pv
+
+

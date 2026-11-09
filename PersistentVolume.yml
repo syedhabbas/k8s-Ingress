@@ -1,0 +1,22 @@
+# In this file we will define Persistent Volume.
+
+apiVersion: v1
+kind: PersistentVolume
+
+metadata:
+  name: local-pv
+  namespace:  ns-pv
+spec:
+  capacity:
+    storage:  1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy:  Retain
+  storageClassName: local-storage
+  hostPath:
+    path: "/mnt/data"
+    type: DirectoryOrCreate
+
+
+

@@ -142,3 +142,53 @@ we created cron-job.yml file
 # kubectl logs pods/minute-backup-29884545-9gtbj --namespace production
 
 ========================================================================================================
+
+PV and PVC
+
+I created following files to demonstrate PV and PVC
+PersistentVolume.yml
+PersistentVolumeClaim.yml
+ns-pv.yml
+ns-pv-pod.yml
+
+apply above 4 yml files in the same sequence., after applying two files
+make sure status is BOUND in both cases for PV and PVC
+
+# kubectl apply -f PersistentVolume.yml
+# kubectl apply -f PersistentVolumeClaim.yml
+# kubectl get pv
+# kubectl get pvc --namespace ns-pv
+
+Then apply next two files
+
+# kubectl apply -f ns-pv.yml
+# kubectl apply -f ns-pv-pod.yml
+
+Then go into volumeMounts /data, which we mentioned inside ns-pv-pod.yml file
+
+# kubectl exec -it pods/pv-demo-pod --namespace ns-pv -- sh
+# cd /data
+
+Create a file named text.txt 
+# echo "Hello Dosto" > text.txt
+
+Now test, if our PV and PVC is working
+Delete Pod
+
+# kubectl delete pods/pv-demo-pod --namespace ns-pv
+
+Make sure pod is deleted 
+# kubectl get pods --namespace ns-pv
+
+Create Pod again
+# kubectl apply -f ns-pv-pod.yml
+
+Get into pod again, 
+
+# kubectl exec -it pods/pv-demo-pod --namespace ns-pv -- sh
+# cd /data
+
+if you see the file text.txt, then our PV and PVC is running successfully.
+
+
+========================================================================================================

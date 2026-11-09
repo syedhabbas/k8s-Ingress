@@ -1,0 +1,23 @@
+# In this file we will create a POD, to demonstrate PV and PVC
+
+
+kind: Pod
+apiVersion: v1
+
+metadata:
+  name: pv-demo-pod
+  namespace: ns-pv
+
+spec:
+  containers:
+    - name: pvc-container
+      image:  busybox
+      command:  ["sh", "-c", "sleep 3600"]
+      volumeMounts:
+        - mountPath:  "/data"
+          name: my-storage
+  volumes:
+    - name: my-storage
+      persistentVolumeClaim:
+        claimName:  local-pvc
+

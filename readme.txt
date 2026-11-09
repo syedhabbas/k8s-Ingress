@@ -190,5 +190,26 @@ Get into pod again,
 
 if you see the file text.txt, then our PV and PVC is running successfully.
 
+Important Note for hostpath inside PersistentVolume.yml file.
+
+hostPath:
+ path: "/mnt/data"
+
+above path is not on out physical EC2 instance rather it is node actual file system
+First find the node inside cluster where out container is running
+
+
+# kubectl get nodes | it will show us nodes in our cluster
+# kubectl get pods/pv-demo-pod --namespace ns-pv | it will show pod name
+
+Following command will show actual cluster node inside where our above pod is running
+# kubectl get pods/pv-demo-pod --namespace ns-pv -o wide 
+
+Login into that cluster node to find out hostPath, mentioned in PersistentVolume.yml
+# docker exec -it kanosh-worker3 sh
+# cd /mnt/data
+# ls -l
+
+Here we will see the files, which we created inside our POD.
 
 ========================================================================================================
